@@ -1,13 +1,21 @@
-#讀取檔案
+#先檢查檔案是否有在電腦裡面，因為沒有的話會造成程式當掉
+import os #可以用os(作業系統)來檢查，因為普通的程式碼沒有權限做到
 products = []
-with open("products.csv", "r", encoding = "utf-8") as f:
-    for line in f: #一行一行讀取，所以變數取line
-        if "商品,價格" in line:
-            continue #跟break一樣，continue的功能：直接跳到下一個迴圈，在這邊的意思就是不會把"商品,價格"這個字串存在清單
-        name, price = line.strip().split(",") #strip：去掉換行符號 #split：切割，每行遇到逗點就切一刀，切割完的結果會變清單
+if os.path.isfile("products.csv"):
+    print("檔案找到了")
+    #讀取檔案
+    with open("products.csv", "r", encoding = "utf-8") as f:
+        for line in f: #一行一行讀取，所以變數取line
+            if "商品,價格" in line:
+                continue #跟break一樣，continue的功能：直接跳到下一個迴圈，在這邊的意思就是不會把"商品,價格"這個字串存在清單
+            name, price = line.strip().split(",") #strip：去掉換行符號 #split：切割，每行遇到逗點就切一刀，切割完的結果會變清單
         #上面這樣是把清單的名稱跟價格分別存到兩個變數
-        products.append([name, price])
-print(products)
+            products.append([name, price])
+    print(products)
+else:
+    print("檔案沒找到...")
+
+
 
 #讓使用者輸入
 while True:
